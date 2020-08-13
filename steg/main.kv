@@ -1,0 +1,58 @@
+Root:
+    orientation: 'vertical'
+    ActionBar: #header
+        pos_hint: {'top':1}
+        ActionView:
+            app_icon: 'lens-cap.png'
+            canvas.before:
+                Color:
+                    rgba: root.hex("00b248")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            use_separator: False
+            ActionPrevious:
+                title: 'Steggy'
+                color: root.hex("000000")
+                with_previous: False
+                ActionButton:
+                    text: 'Quit'
+                    color: root.hex("000000")
+    BoxLayout:
+        orientation: 'vertical'
+        FloatLayout:
+            orientation: 'vertical'
+            size: (1,0.5)
+            canvas.before:
+                Color:
+                    rgba: root.hex("00e676")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Image:
+                canvas.before:
+                    Color:
+                        rgba: root.hex("00e676")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                source: 'logo.png'
+                size_hint: (0.5,0.9)
+                pos_hint: {'x': 0.25, 'y': 0.1}
+            Button:
+                text: 'Load Image'
+                size_hint: (0.2, 0.1)
+                pos_hint: {'x': 0.4,'y':0}
+                color: root.hex('000000')
+                background_color: root.hex('66ffa6')
+        FloatLayout:
+            size: (1,0.5)
+            canvas.before:
+                Color:
+                    rgba: root.hex("ffffff")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Button:
+                text: 'asdas'
+                size: (20,20)
