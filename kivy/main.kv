@@ -1,0 +1,95 @@
+Root:
+    orientation: 'vertical'
+    ActionBar: #header
+        pos_hint: {'top':1}
+        ActionView:
+            app_icon: 'lens-cap.png'
+            canvas.before:
+                Color:
+                    rgba: root.hex("00b248")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            use_separator: False
+            ActionPrevious:
+                title: 'Steggy'
+                color: root.hex("000000")
+                with_previous: False
+                ActionButton:
+                    text: 'Quit'
+                    on_press: app.stop()
+                    color: root.hex("ffffff")
+                    canvas.before:
+                        Color:
+                            rgba: root.hex("005005")
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        FloatLayout:
+            canvas.before:
+                Color:
+                    rgba: root.hex("00e676")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            ImageButton:
+                source: 'logo.png'
+                size_hint: (1,1)
+                pos_hint: {'x': 0, 'y': 0}
+                on_press: root.load()
+        BoxLayout: # option
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgba: root.hex("ffffff")
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            FloatLayout:
+                Spinner:
+                    values: ('DECODE', 'ENCODE')
+                    text: 'DECODE'
+                    size_hint: (0.5, 0.25)
+                    pos_hint: {'x': 0,'y':0.75}
+
+                Spinner:
+                    values: ('IMAGE', 'MESSAGE')
+                    text: 'MESSAGE'
+                    size_hint: (0.5, 0.25)
+                    pos_hint: {'x': 0.5,'y':0.75}
+                Button:
+                    text: 'RUN'
+                    size_hint: (0.5, 0.25)
+                    pos_hint: {'x': 0,'y':0.125}
+                Button:
+                    disabled: True
+                    text: 'DATA'
+                    size_hint: (0.5, 0.25)
+                    pos_hint: {'x': 0.5,'y':0.125}
+            FloatLayout:
+                ImageButton:
+                    source: 'logo.png'
+                    on_release: root.load()
+                    size_hint: (0.8,1)
+                    pos_hint: {'x': 0.1, 'y': 0}
+                    on_press: print("load data")
+<FileDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                #on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                #on_release: root.load(filechooser.path, filechooser.selection)
