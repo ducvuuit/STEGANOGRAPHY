@@ -16,7 +16,7 @@ For running it on android:
 - Download kivy launcher
 - Copy steg dir to sdCard/kivi/
 
-Author:
-@Truong Duc Vu
-@Tran Trung Anh
-@luu Hoang Son
+Author:   
+@Truong Duc Vu  
+@Tran Trung Anh   
+@luu Hoang Son   
