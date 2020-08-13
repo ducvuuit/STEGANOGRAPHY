@@ -1,0 +1,32 @@
+Root:
+    Header:
+        canvas.before:
+            Color:
+                rgba: 0, 0, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        text: 'Steganography'
+        color: 1, 1, 1, 1
+        size_hint: (1, 0.1)
+        font_size: 100
+    Preview:
+        size_hint: (1, 0.6)
+        Image:
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            source: 'logo.png'
+            size_hint: (1, 0.8)
+
+        Button:
+            text: 'Load Image'
+            size_hint: (0.2, 0.1)
+            pos_hint: {'x': 0.4}
+            on_press: print("ouch! More gently please")
+            on_release: print("ahhh")
+
+

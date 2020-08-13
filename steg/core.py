@@ -187,11 +187,11 @@ class Steganography:
         print("Saving successful!")
 
 #encode and save
-steg = Steganography(origin,'!!!!!',';;;;;')
-temp = steg.encode(lena,type=IMAGE)
-Steganography.save(temp,IMAGE,"test")
+# steg = Steganography(origin,'!!!!!',';;;;;')
+# temp = steg.encode(lena,type=IMAGE)
+# Steganography.save(temp,IMAGE,"test")
 #load encoded image and decode then save
-tobe = Steganography('test.png','!!!!!',';;;;;')
-data = tobe.decode(IMAGE)
-Steganography.save(data,IMAGE,"hidden")
+# tobe = Steganography('test.png','!!!!!',';;;;;')
+# data = tobe.decode(IMAGE)
+# Steganography.save(data,IMAGE,"hidden")
 
