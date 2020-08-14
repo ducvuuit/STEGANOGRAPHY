@@ -7,10 +7,10 @@ DATA = 'DATA'
 MESSAGE = 'MESSAGE'
 IMAGE = 'IMAGE'
 def init_dirs():
-    containers_dir = os.getcwd() + '/containers'
-    data_dir = os.getcwd() + '/data'
-    encoded_dir = os.getcwd() + '/encoded'
-    decoded_dir = os.getcwd() + '/decoded'
+    containers_dir = os.path.join(os.getcwd(),  'containers')
+    data_dir =  os.path.join(os.getcwd(), 'data' )
+    encoded_dir =  os.path.join(os.getcwd(), 'encoded' )
+    decoded_dir =  os.path.join(os.getcwd(), 'decoded' )
     dirs = [containers_dir,data_dir,encoded_dir,decoded_dir]
     for dir in dirs:
         if not os.path.isdir(dir):

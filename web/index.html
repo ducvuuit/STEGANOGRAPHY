@@ -105,8 +105,8 @@
 
                 <div class="form-group">
                     <div class="offset-md-5 col-md-2 mb-3">
-                        <button class="btn btn-primary" type="submit" id="btn">Run</button>
-                        <button class="btn btn-secondary" type="submit" id="btn">Cancel</button>
+                        <button class="btn btn-primary" type="button" id="btn">Run</button>
+                        <button class="btn btn-secondary" type="button" id="cancel">Cancel</button>
                     </div>
                 </div>
 
@@ -178,6 +178,7 @@
                             a.remove();
                         })
                         .catch(err => {
+                            console.log(err.message,err)
                             alert(err.message)
                         })
                 }
@@ -221,7 +222,9 @@
                         })
                         .catch(err => {
                             alert(err.message)
+                            console.log(err.message,err)
                         })
+                        e.preventDefault()
                 }
             }
         })
