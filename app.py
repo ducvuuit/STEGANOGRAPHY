@@ -47,7 +47,7 @@ def html():
 def index():
     t = {"message":"WELCOME TO Steggy !"}
     print(t)
-    return t
+    return t,200
 @app.route('/encode',methods=['post'])
 def do_encode_stuff():
     if request.files:
@@ -84,16 +84,17 @@ def do_encode_stuff():
             f.close()
             print("Save text data success!")
             print(data_path)
+
         try:
             steg = Steganography(container_path)
             encoded = steg.encode(data_path,type)
             Steganography.save(encoded,IMAGE,os.path.join(encoded_dir,ts))
-            return send_file(os.path.join(encoded_dir,'{}.png'.format(ts)), as_attachment=True)
+            return send_file(os.path.join(encoded_dir,'{}.png'.format(ts)), as_attachment=True),200
         except Exception:
-            return {"error": "Request format wrong or data is too big"}
+            return {"error": "Request format wrong or data is too big"},401
 
 
-    return {"error":"Internal Server Error"}
+    return {"error":"Internal Server Error"},500
 
 @app.route('/decode',methods=['post'])
 def do_decode_stuff():
@@ -112,7 +113,6 @@ def do_decode_stuff():
         container_path = os.path.join(decoded_dir,'{}.{}'.format(ts,extension))
         print("Save container success!")
         print(container_path)
-
         try:
             steg = Steganography(container_path)
             data = steg.decode(type)
@@ -120,11 +120,12 @@ def do_decode_stuff():
                 Steganography.save(data,IMAGE,os.path.join(data_dir,ts))
                 return send_file(os.path.join(data_dir,'{}.png'.format(ts)), as_attachment=True)
             elif type == MESSAGE:
-                return {"message": data}
+                save(MESSAGE,data,'{}.txt'.format(ts),data_dir)
+                return send_file(os.path.join(data_dir,'{}.txt'.format(ts)), as_attachment=True)
         except Exception:
-            return {"error":"Internal Server Error"}
+            return {"error":"Internal Server Error"},500
 
-    return {"error":"Internal Server Error"}
+    return {"error":"Internal Server Error"},500
 
 if __name__ == '__main__':
     app.run(debug=True)

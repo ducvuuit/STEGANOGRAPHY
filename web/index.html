@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Steggy</title>
@@ -32,65 +33,86 @@
             </ul>
         </div>
     </nav>
-    <div class="container" style="margin-top: 50px;">
-        <form>
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    <label for="action">What do you want?</label>
-                    <select id="action" class="form-control">
-                        <option value="" selected>Select</option>
-                        <option value="ENCODE">Encode</option>
-                        <option value="DECODE">Decode</option>
-                    </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="type">What is kind of data ?</label>
-                    <select id="type" class="form-control">
-                        <option value="" selected>Select</option>
-                        <option value="MESSAGE">Message</option>
-                        <option value="IMAGE">Image</option>
-                    </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationDefaultUsername">Username</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend2">@</span>
+    <div class="cont">
+        <div class="container" style="margin-top: 50px;">
+            <form>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="action">What do you want?</label>
+                        <select id="action" class="form-control">
+                            <option disabled selected>Select</option>
+                            <option value="ENCODE">Encode</option>
+                            <option value="DECODE">Decode</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="type">What is kind of data ?</label>
+                        <select id="type" class="form-control">
+                            <option disabled selected>Select</option>
+                            <option value="MESSAGE">Message</option>
+                            <option value="IMAGE">Image</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationDefaultUsername">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                            </div>
+                            <input type="text" class="form-control" id="validationDefaultUsername"
+                                placeholder="Username" aria-describedby="inputGroupPrepend2">
                         </div>
-                        <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username"
-                            aria-describedby="inputGroupPrepend2">
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group custom-file disabled">
-                <input type="file" class="custom-file-input" id="container">
-                <label class="custom-file-label" for="customFile" id="containerLabel">Loading container image</label>
-            </div>
-
-            <div class="form-group">
-                <label for="validationDefault02">Text data</label>
-                <input type="text" class="form-control" id="text" placeholder="Enter text data..." required>
-            </div>
-
-            <div class="form-group custom-file">
-                <input type="file" class="custom-file-input" id="image">
-                <label class="custom-file-label" for="customFile" id="imageLabel">Loading data as image</label>
-            </div>
-
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2">
-                    <label class="form-check-label" for="invalidCheck2">
-                        Agree to terms and conditions
-                    </label>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3 ">
+                        <label>Load an image container</label>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit" id="btn">Run</button>
-            </div>
+                <div class="form-group custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="container">
+                    <label class="custom-file-label" for="customFile" id="containerLabel">Loading container
+                        image</label>
+                </div>
 
-        </form>
+                <div class="form-group">
+                    <label for="validationDefault02">Text data</label>
+                    <input type="text" class="form-control" id="text" placeholder="Enter text data..." required>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label>Loading data as image</label>
+                    </div>
+                </div>
+                <div class="form-group custom-file">
+                    <input type="file" class="custom-file-input" id="image">
+                    <label class="custom-file-label" for="customFile" id="imageLabel">Loading data as image</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Filename</label>
+                    <input type="text" class="form-control" id="filename" placeholder="Enter your filename ..."
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                        <label class="form-check-label" for="invalidCheck2">
+                            Agree to terms and conditions
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="offset-md-5 col-md-2 mb-3">
+                        <button class="btn btn-primary" type="submit" id="btn">Run</button>
+                        <button class="btn btn-secondary" type="submit" id="btn">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -113,41 +135,8 @@
         let action = document.getElementById("action")
         let type = document.getElementById("type")
         let btn = document.getElementById("btn")
-
-        function a() {
-
-            fetch("/home", {
-                method: 'GET', // *GET, POST, PUT, DELETE, etc.
-                mode: 'no-cors', // no-cors, *cors, same-origin
-                // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                // credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'User-Agent': 'PostmanRuntime/7.26.3',
-                    'Accept': '*/*',
-                    'Accept-Encoding': 'gzip, deflate, br',
-                    'Connection': 'keep-alive'
-                },
-                // body: formData
-            })
-                .then((res) => res.json())
-                .then(res => {
-                    console.log(res)
-                    // var url = window.URL.createObjectURL(blob);
-                    // var a = document.createElement('a');
-                    // a.href = url;
-                    // a.download = "filename.png";
-                    // document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-                    // a.click();
-                    // a.remove();
-                })
-                .catch(err => {
-                    console.log(err.message)
-                })
-        }
+        let filename = document.getElementById("filename")
         btn.addEventListener("click", (e) => {
-
             if (action.value !== "" && type.value !== "") {
                 let TYPE = type.value
                 let formData = new FormData()
@@ -171,19 +160,26 @@
                         },
                         body: formData
                     })
-                        .then((res) => res.blob())
+                        .then((res) => {  
+                            if (res.status == 500){
+                                throw new Error("Request format is wrong!")
+                            }
+                            if (res.status == 401){
+                                throw new Error("Data is too big, cannot hide into container!")
+                            }
+                            return res.blob()})
                         .then(blob => {
                             console.log(blob)
                             var url = window.URL.createObjectURL(blob);
                             var a = document.createElement('a');
                             a.href = url;
-                            a.download = "filename.png";
+                            a.download = `${filename.value}.png`;
                             document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
                             a.click();
                             a.remove();
                         })
                         .catch(err => {
-                            console.log(err.message)
+                            alert(err.message)
                         })
                 }
                 if (action.value === "DECODE") {
@@ -198,34 +194,37 @@
                         body: formData
                     })
                         .then((res) => {
-                            if (type.value == "IMAGE") {
-                                return res.blob()
+                            if (res.status == 500){
+                                throw new Error("Data format wrong, decoding fail!")
                             }
-                            if (type.value == "MESSAGE") {
-                                return res.json()
-                            }
+
+                            return res.blob()
                         })
                         .then(res => {
                             if (type.value == "IMAGE") {
-                                var url = window.URL.createObjectURL(blob);
+                                var url = window.URL.createObjectURL(res);
                                 var a = document.createElement('a');
                                 a.href = url;
-                                a.download = "filename.png";
+                                a.download = `${filename.value}.png`;
                                 document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
                                 a.click();
                                 a.remove();
                             }
                             if (type.value == "MESSAGE") {
-                                alert(res.message)
+                                var url = window.URL.createObjectURL(res);
+                                var a = document.createElement('a');
+                                a.href = url;
+                                a.download = `${filename.value}.txt`;
+                                document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+                                a.click();
+                                a.remove();
                             }
-
                         })
                         .catch(err => {
-                            console.log(err.message)
+                            alert(err.message)
                         })
                 }
             }
-            e.preventDefault()
         })
 
         action.addEventListener("change", () => {
@@ -238,19 +237,21 @@
                 img.disabled = false
                 imgL.innerHTML = "Loading data as image"
             }
-            console.log("trigger")
         })
         type.addEventListener("change", () => {
-            if (type.value == 'IMAGE') {
-                data.disabled = true
-                img.disabled = false
-                imgL.innerHTML = "Loading data as image"
-            } else {
-                data.disabled = false
-                img.disabled = true
-                imgL.innerHTML = "Disabled"
+            if (action.value == 'ENCODE') {
+                if (type.value == 'IMAGE') {
+                    data.disabled = true
+                    img.disabled = false
+                    imgL.innerHTML = "Loading data as image"
+                } else {
+
+                    data.disabled = false
+                    img.disabled = true
+                    imgL.innerHTML = "Disabled"
+                }
             }
-            console.log("trigger type")
+
         })
         cont.addEventListener("change", () => {
             contL.innerHTML = cont.files[0].name
@@ -258,8 +259,17 @@
         img.addEventListener("change", () => {
             imgL.innerHTML = img.files[0].name
         })
-
     </script>
+    <style>
+        .cont {
+            display: flex;
+            width: 100vw;
+            height: 80vh;
+            justify-content: center;
+            align-items: center;
+            /* border: solid; */
+        }
+    </style>
 </body>
 
 
