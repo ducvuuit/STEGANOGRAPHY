@@ -38,9 +38,12 @@ def save(type,content,filename,path):
 containers_dir,data_dir,encoded_dir,decoded_dir = init_dirs()
 
 app = Flask(__name__)
-@app.route('/',methods=['POST','GET'])
+@app.route('/home',methods=['POST','GET'])
 def index():
-    return jsonify({"message":"WELCOME TO Steggy !"})
+    print("got")
+    t = {"\"message\"":"\"WELCOME TO Steggy !\""}
+    print(t)
+    return t
 @app.route('/encode',methods=['post'])
 def do_encode_stuff():
     if request.files:
