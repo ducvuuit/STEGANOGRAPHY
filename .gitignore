@@ -1,3 +1,7 @@
 __pycache__/
 .idea
 kivy/__pycache__/
+containers/
+data/
+decoded/
+encoded/
