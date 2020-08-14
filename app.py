@@ -48,6 +48,9 @@ def index():
     t = {"message":"WELCOME TO Steggy !"}
     print(t)
     return t,200
+@app.route('/electronics.png')
+def ele():
+    return send_file(os.path.join(os.getcwd(), 'electronics.png'), as_attachment=True), 200
 @app.route('/encode',methods=['post'])
 def do_encode_stuff():
     if request.files:
