@@ -93,136 +93,174 @@
         </form>
     </div>
 
-</body>
-<script>
-    let cont = document.getElementById("container")
-    let contL = document.getElementById("containerLabel")
-    let img = document.getElementById("image")
-    let imgL = document.getElementById("imageLabel")
-    let data = document.getElementById("text")
-    let action = document.getElementById("action")
-    let type = document.getElementById("type")
-    let btn = document.getElementById("btn")
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-    btn.addEventListener("click", (e) => {
+    <script>
+        let cont = document.getElementById("container")
+        let contL = document.getElementById("containerLabel")
+        let img = document.getElementById("image")
+        let imgL = document.getElementById("imageLabel")
+        let data = document.getElementById("text")
+        let action = document.getElementById("action")
+        let type = document.getElementById("type")
+        let btn = document.getElementById("btn")
 
-        if (action.value !== "" && type.value !== "") {
-            let TYPE = type.value
-            let formData = new FormData()
-            formData.append("type", type.value)
-            if (cont.files.length > 0) {
-                formData.append("container", cont.files[0], cont.files[0].name)
-            }
-            if (img.files.length > 0) {
-                formData.append("data", img.files[0], img.files[0].name)
-            } else {
-                formData.append("data", data.value)
-            }
-            if (action.value === "ENCODE") {
+        function a() {
 
-                fetch("http://127.0.0.1:5000/encode", {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    mode: 'no-cors', // no-cors, *cors, same-origin
-                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: 'same-origin', // include, *same-origin, omit
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                    },
-                    body: formData
+            fetch("/home", {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'no-cors', // no-cors, *cors, same-origin
+                // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                // credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'User-Agent': 'PostmanRuntime/7.26.3',
+                    'Accept': '*/*',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Connection': 'keep-alive'
+                },
+                // body: formData
+            })
+                .then((res) => res.json())
+                .then(res => {
+                    console.log(res)
+                    // var url = window.URL.createObjectURL(blob);
+                    // var a = document.createElement('a');
+                    // a.href = url;
+                    // a.download = "filename.png";
+                    // document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+                    // a.click();
+                    // a.remove();
                 })
-                    .then((res) => res.blob())
-                    .then(blob => {
-                        var url = window.URL.createObjectURL(blob);
-                        var a = document.createElement('a');
-                        a.href = url;
-                        a.download = "filename.png";
-                        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-                        a.click();
-                        a.remove();
+                .catch(err => {
+                    console.log(err.message)
+                })
+        }
+        btn.addEventListener("click", (e) => {
+
+            if (action.value !== "" && type.value !== "") {
+                let TYPE = type.value
+                let formData = new FormData()
+                formData.append("type", type.value)
+                if (cont.files.length > 0) {
+                    formData.append("container", cont.files[0], cont.files[0].name)
+                }
+                if (img.files.length > 0) {
+                    formData.append("data", img.files[0], img.files[0].name)
+                } else {
+                    formData.append("data", data.value)
+                }
+                if (action.value === "ENCODE") {
+                    fetch("/encode", {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'no-cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        body: formData
                     })
-                    .catch(err => {
-                        console.log(err.message)
+                        .then((res) => res.blob())
+                        .then(blob => {
+                            console.log(blob)
+                            var url = window.URL.createObjectURL(blob);
+                            var a = document.createElement('a');
+                            a.href = url;
+                            a.download = "filename.png";
+                            document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+                            a.click();
+                            a.remove();
+                        })
+                        .catch(err => {
+                            console.log(err.message)
+                        })
+                }
+                if (action.value === "DECODE") {
+                    fetch("/decode", {
+                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                        mode: 'no-cors', // no-cors, *cors, same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                        },
+                        body: formData
                     })
+                        .then((res) => {
+                            if (type.value == "IMAGE") {
+                                return res.blob()
+                            }
+                            if (type.value == "MESSAGE") {
+                                return res.json()
+                            }
+                        })
+                        .then(res => {
+                            if (type.value == "IMAGE") {
+                                var url = window.URL.createObjectURL(blob);
+                                var a = document.createElement('a');
+                                a.href = url;
+                                a.download = "filename.png";
+                                document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+                                a.click();
+                                a.remove();
+                            }
+                            if (type.value == "MESSAGE") {
+                                alert(res.message)
+                            }
+
+                        })
+                        .catch(err => {
+                            console.log(err.message)
+                        })
+                }
             }
-        }
-        e.preventDefault()
-    })
+            e.preventDefault()
+        })
 
+        action.addEventListener("change", () => {
+            if (action.value == 'DECODE') {
+                data.disabled = true
+                img.disabled = true
+                imgL.innerHTML = "Disabled"
+            } else {
+                data.disabled = false
+                img.disabled = false
+                imgL.innerHTML = "Loading data as image"
+            }
+            console.log("trigger")
+        })
+        type.addEventListener("change", () => {
+            if (type.value == 'IMAGE') {
+                data.disabled = true
+                img.disabled = false
+                imgL.innerHTML = "Loading data as image"
+            } else {
+                data.disabled = false
+                img.disabled = true
+                imgL.innerHTML = "Disabled"
+            }
+            console.log("trigger type")
+        })
+        cont.addEventListener("change", () => {
+            contL.innerHTML = cont.files[0].name
+        })
+        img.addEventListener("change", () => {
+            imgL.innerHTML = img.files[0].name
+        })
 
+    </script>
+</body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    action.addEventListener("change", () => {
-        if (action.value == 'DECODE') {
-            data.disabled = true
-            img.disabled = true
-            imgL.innerHTML = "Disabled"
-        } else {
-            data.disabled = false
-            img.disabled = false
-            imgL.innerHTML = "Loading data as image"
-        }
-        console.log("trigger")
-    })
-    type.addEventListener("change", () => {
-        if (type.value == 'IMAGE') {
-            data.disabled = true
-            img.disabled = false
-            imgL.innerHTML = "Loading data as image"
-        } else {
-            data.disabled = false
-            img.disabled = true
-            imgL.innerHTML = "Disabled"
-        }
-        console.log("trigger type")
-    })
-    cont.addEventListener("change", () => {
-        contL.innerHTML = cont.files[0].name
-    })
-    img.addEventListener("change", () => {
-        imgL.innerHTML = img.files[0].name
-    })
-
-
-
-
-
-
-
-
-
-</script>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
 
 </html>

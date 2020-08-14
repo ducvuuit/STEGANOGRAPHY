@@ -1,4 +1,4 @@
-from flask import Flask,request,jsonify,send_file
+from flask import Flask,request,jsonify,send_file,render_template
 from datetime import datetime
 from core import Steganography
 import os
@@ -38,10 +38,14 @@ def save(type,content,filename,path):
 containers_dir,data_dir,encoded_dir,decoded_dir = init_dirs()
 
 app = Flask(__name__)
+@app.route('/',methods=['GET'])
+def html():
+    f = open('web/index.html')
+    data = f.read()
+    return data
 @app.route('/home',methods=['POST','GET'])
 def index():
-    print("got")
-    t = {"\"message\"":"\"WELCOME TO Steggy !\""}
+    t = {"message":"WELCOME TO Steggy !"}
     print(t)
     return t
 @app.route('/encode',methods=['post'])
@@ -109,17 +113,16 @@ def do_decode_stuff():
         print("Save container success!")
         print(container_path)
 
-        # try:
-        steg = Steganography(container_path)
-        data = steg.decode(type)
-        if type == IMAGE:
-            Steganography.save(data,IMAGE,os.path.join(data_dir,ts))
-            return send_file(os.path.join(data_dir,'{}.png'.format(ts)), as_attachment=True)
-        elif type == MESSAGE:
-            return {"message": data}
-        # except Exception:
-        return {"error": "Cannot decode"}
-
+        try:
+            steg = Steganography(container_path)
+            data = steg.decode(type)
+            if type == IMAGE:
+                Steganography.save(data,IMAGE,os.path.join(data_dir,ts))
+                return send_file(os.path.join(data_dir,'{}.png'.format(ts)), as_attachment=True)
+            elif type == MESSAGE:
+                return {"message": data}
+        except Exception:
+            return {"error":"Internal Server Error"}
 
     return {"error":"Internal Server Error"}
 
