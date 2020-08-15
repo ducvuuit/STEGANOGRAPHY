@@ -7,10 +7,17 @@ DATA = 'DATA'
 MESSAGE = 'MESSAGE'
 IMAGE = 'IMAGE'
 def init_dirs():
+<<<<<<< HEAD
     containers_dir = os.path.join(os.getcwd(),  'containers')
     data_dir =  os.path.join(os.getcwd(), 'data' )
     encoded_dir =  os.path.join(os.getcwd(), 'encoded' )
     decoded_dir =  os.path.join(os.getcwd(), 'decoded' )
+=======
+    containers_dir = os.path.join( os.getcwd() ,'containers')
+    data_dir = os.path.join(os.getcwd(),'data')
+    encoded_dir = os.path.join(os.getcwd(),'encoded')
+    decoded_dir = os.path.join(os.getcwd(),'decoded')
+>>>>>>> 02e70079ee91d27f7a44575c12b32f1e269c2bf6
     dirs = [containers_dir,data_dir,encoded_dir,decoded_dir]
     for dir in dirs:
         if not os.path.isdir(dir):
@@ -106,8 +113,6 @@ def do_decode_stuff():
         type = request.form.get('type')
 
         ts = str(int(datetime.timestamp(datetime.now())))
-        container_path = None
-        data_path = None
         # For Saving Data
         container = request.files["container"]
         temp = container.filename.split(".")

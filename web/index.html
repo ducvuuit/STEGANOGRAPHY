@@ -34,12 +34,12 @@
     </nav>
     <div class="cont">
         <div class="container" style="margin-top: 50px;">
-            <form>
+            <form id="f">
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
                         <label for="action">What do you want?</label>
                         <select id="action" class="form-control">
-                            <option disabled selected>Select</option>
+                            <option disabled selected value="">Select</option>
                             <option value="ENCODE">Encode</option>
                             <option value="DECODE">Decode</option>
                         </select>
@@ -47,7 +47,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="type">What is kind of data ?</label>
                         <select id="type" class="form-control">
-                            <option disabled selected>Select</option>
+                            <option disabled selected value="">Select</option>
                             <option value="MESSAGE">Message</option>
                             <option value="IMAGE">Image</option>
                         </select>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="form-group custom-file mb-3">
-                    <input type="file" class="custom-file-input" id="container">
+                    <input type="file" class="custom-file-input" id="container" accept=".png">
                     <label class="custom-file-label" for="customFile" id="containerLabel">Loading container
                         image</label>
                 </div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="form-group custom-file">
-                    <input type="file" class="custom-file-input" id="image">
+                    <input type="file" class="custom-file-input" id="image" accept="image/*">
                     <label class="custom-file-label" for="customFile" id="imageLabel">Loading data as image</label>
                 </div>
 
@@ -96,8 +96,8 @@
 
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                        <label class="form-check-label" for="invalidCheck2">
+                        <input class="form-check-input" type="checkbox" value="" id="check" required>
+                        <label class="form-check-label" for="check">
                             Agree to terms and conditions
                         </label>
                     </div>
@@ -135,8 +135,16 @@
         let type = document.getElementById("type")
         let btn = document.getElementById("btn")
         let filename = document.getElementById("filename")
+        let check = document.getElementById("check")
+        let cancel = document.getElementById("cancel")
+        function clearForm(){
+            document.getElementById("f").reset()
+        }
+        cancel.addEventListener("click",()=>{
+            clearForm()
+        })
         btn.addEventListener("click", (e) => {
-            if (action.value !== "" && type.value !== "") {
+            if (action.value !== "" && type.value !== "" && check.checked) {
                 let TYPE = type.value
                 let formData = new FormData()
                 formData.append("type", type.value)
@@ -176,9 +184,14 @@
                             document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
                             a.click();
                             a.remove();
+                            clearForm()
                         })
                         .catch(err => {
+<<<<<<< HEAD
                             console.log(err.message,err)
+=======
+                            console.log(err)
+>>>>>>> 02e70079ee91d27f7a44575c12b32f1e269c2bf6
                             alert(err.message)
                         })
                 }
@@ -209,6 +222,7 @@
                                 document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
                                 a.click();
                                 a.remove();
+                                clearForm()
                             }
                             if (type.value == "MESSAGE") {
                                 var url = window.URL.createObjectURL(res);
@@ -218,14 +232,19 @@
                                 document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
                                 a.click();
                                 a.remove();
+                                clearForm()
                             }
                         })
                         .catch(err => {
+                            console.log(err)
                             alert(err.message)
                             console.log(err.message,err)
                         })
                         e.preventDefault()
                 }
+            }
+            else{
+                alert("You must agree terms and provide options")
             }
         })
 
